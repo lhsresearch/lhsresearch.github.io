@@ -85,7 +85,7 @@ function draw()
 						text('Flappy Ball', 85, 100);
 						textSize(20);
 
-						text("\"I'm not proud of this\" - Surya", 210, 150);
+						text("Just a P5JS Demo By Surya", 210, 150);
 						text("Score:  "+floor(this.storescore),300, 200);
 
 
