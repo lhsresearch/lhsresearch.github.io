@@ -1,38 +1,403 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<!--
+    OSWEB is distributed under the terms of the GNU General Public License 3.
+    The full license should be included in the file COPYING,
+    or can be obtained from: http://www.gnu.org/licenses/gpl.txt
+-->
 <html>
-	
-	<!-- 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
-	<script src="sketchindex.js"></script>
-	-->
 
-	<head>
-	
-		<title>Welcome To The Research Page</title>
-	
-	</head>
-	
+<head>
+	<!-- Head - general definitions -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>osweb 1.1.0</title>
+	<link href="https://cdn.materialdesignicons.com/2.4.85/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+	<!-- JavaScript -->
+<link rel="shortcut icon" href="osdoc.png"><link href="css/vendors~osweb.1db5b1ac025152fc341d.bundle.css" rel="stylesheet"><link href="css/osweb.cad4ed1e2187bcbd6ce2.bundle.css" rel="stylesheet">
+<script type="text/javascript" src="js/vendors~osweb.1db5b1ac025152fc341d.bundle.js">
+</script><script type="text/javascript" src="js/osweb.cad4ed1e2187bcbd6ce2.bundle.js"></script></head>
 
-	<body>
-		<center><font face="verdana" style="font-size:18px" >Thanks for participating in Surya's research study!<font></center>
-		<br>			
-		<center><font face="verdana" style="font-size:35px" >Testing login<font></center>
-			
-		<br>
-		<br>
+<body>
+	<!-- <script src="js/PixiTextInput.js"></script> -->
+	<!-- Body - Command bar definitions -->
+	<div class="d-flex h-100 flex-column">
+		<nav class="navbar navbar-expand-md navbar-light bg-light">
+			<a class="navbar-brand" href="/">
+				<img alt="Brand" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASsAAAErCAMAAACxelWGAAAABGdBTUEAALGPC/xhBQAAAwBQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAgAAAsADhgGABgAAB4AIjUPBD8AOlsXRmkhRmkhRmkhSm4kS3AkTHEmTXElTnMmU3kpXIUvZY85jZGIaZI9aJI7a5Q/bJRBiZR9aZU9bZg+f5pidppOdpxMb587eqVNfahPgKlTg65Wf69LgbBVlL5mmMFrl8JqncNznsN1mcRunsdxnsZzosl3pMp7pst9psx/stWL/////////////////////f39+/v7/Pz8+vr6+fn59vb29fX18/Pz8fHx7u7u7Ozs4enZ5+jn5ufm4uTh4eLg3N3c2tzZs9eMtNaPsdWJ1tbWrtOGrdOD1NTUq9KBqdF+pdB2qNB7z9DPoM1vpc55os5zzM3LnsxsnMtqm8lplshgyMjIl8ZklsZik8Zdm8VukMVXssScjMNRj8RVw8PCksRajcNTisJOiMBKwcHBh8FIhsBHisBPgr9Bh79Lgb4/g75Dgr5ChL9Ehb9Gsb2jgL0+gb0/fLw4fbw5fLw4fLw4vLy8fLw4fLw4frw7fbw5fLw4frw6fLw4fLw4f7s+fLw4frw7frw7frw7fbw4fbw5fbw4urq6hbpLe7o3e7o3h7lQfrk/erg3erg3erk3erk3g7dMebc2e7Y6ibZYebY2ebY2tLS0d7Q2srKydrI1drI1pLGVebA+dLA0dbA0drE2rq6ucq0zc600ea5BpKqeb6oycasze6dLb6cyb6gypqamcKY2bKMxoqKiaqEwoKCgaqAvaJ0vapw0m5ubZpsumJmYaZk1k5eQZZgtlpaWZJYtkpOQYpMtYJAtX48sXowsXIoqWocpWIQpVoInVH4mVX4pUXklT3clTnQkTHMjS3AiSW4hR2wgRmogRGcfi32iFwAAAFt0Uk5TBAAAAAAAAAAAAAAAAgQICgsNDg8QEhMUFBQXFxgXGRkbHB0eHyAhIgoSDxoPDC0IPfbxW9t3yIqx/vz9/f39WG7zNP7YtZ3+Jvz9/v4d/vUo4/44SGaCpr3R+RzrjhkAAAAGdEVYdFRpdGxlAKju0icAAAAHdEVYdEF1dGhvcgCprsxIAAAADHRFWHREZXNjcmlwdGlvbgATCSEjAAAACnRFWHRDb3B5cmlnaHQArA/MOgAAAAd0RVh0RS1tYWlsAH0Im9UAAAAEdEVYdFVSTAB4o9MPAAAgAElEQVR42u3de2xUddoH8P4/Uy5SaUIIEUE3+5K00JZSWmqb0iKCxULvTTaRoICsiqDwIq4CWoGFLLS71UIojfsPiYQJmxhDGyDZyvjCkggorGDlooggAoKoyE36Ppff71xmzsycc+ZM55yRH6V4Zrow/ez3ec5zzsyZpvnuL7Mr7T7BfavUtfJX1dTW1tXXNzTqVkN9fV1dbU1V9n0rWJU1dQDU9HKM1QRsdTVVv1crVFKQFsdYChmIVf6+rKqByRySkVljQ121/3dhVV3HadIZvEJrqcHie8LAIGE12SltVVXXEOIkhf6X1qthi2+XaiFeDXVVKWpVzXWnVxJCy2H9Ra7XaCmbeJ9QYzKdV32NP9WsauqVQL3CTBJJ1XnttZW43hCLNuQ9Ao3IBNgrKld26lhVC6hXyInSJJRYiG3eFOstseT2mywnzRiMvRSuhpqUsKqs49LDdiOckIljxEQo09y8htZazeJbmpubWU4hIzAKGGV08cuLMV1VHrfy11IzXyx2c6qTotRMPm/D+muEhfeRG5MJMOEldpTE1Vhb6V2ryrombFESCupOOgklREKOlvW8NoQtcUeLQFtLYggmvKgeBVeiw5WW2C4loThQihMykVKLEGr9G62/hy2+vVWotZAYgWm9FK7FCe1cCbOqaRSRwhbFgdI4CSZGIpR/0HondNGtihqTEZjGi7jkAIal6PeUVW3jy3KEEolCqLfeYidiEkoC6F1YnZ1bw1ZnJ94j1FisFcEgYSJfBlwJ0kpLmJTSzCVUM9cdpomYWAmIgGQLrI6Ojk2w/qks3IIb8T5UIzMSo4RJL4oXcimtPlFaaYmQekWNFPYoCYVO6zeINAklJGKe93jt1Cxx03sEh2gkhmCUMPSSXG9ILt4xLl7cVOd3vVVNI808itRKDRTWHTgxk1Qin/djLHbDqKEYg6FXq45LalG4XmmsdbdVVcPLyiQF7XwlNnMJxXUHTpSmTawkLHbA2q6sACx1C+/TkGHGMGHgxfUouZRalKX4SmO1e60q65uklBop6FESCgKFedIysVEg5mIzDRgEDPJF8ZJcFC5dKb7cUOVSq7ombfFhl8JItWDpMRQEqgOdJJMppTAxBkMvrEfBBcXYwuFSSxEfTVNdpQutqht1UqL4MFICigO10yaTARh6YbwElwwXlKJWq7HGbVZcfnJG4OKDLoWRwh5FUCJQO+wzacHIS8eFtdgiShG1lvM8v7i+0lVWNU26TJFUi4gU9igJtcMRqHAuKkYOl1ZLHP001brHqrIhXIqKjyPVIaGcc9J4KVxbOylcWIpvr1W1qBIbq1xiVSPKb/ly6lOqlIxUgqD0XNjqOzFcf2vVafEE4US00hzoVCRFh8cwJbBUK0kpkYLSCyRwcTFCuDq4FFkLujzsE+k0F0aroTLpVrj7E+WH8xT1KSmV6EgZhGuTTovmLVmITTVJtoKZStOo1qzljq6RSnCkQsKl02phLdG2IFr1/iRaYVNfupROumD54TwVIrW9n6TUcEHjElobYN6i6RRP2eAecWl8LT4tvvpbqg2VXur9fpYS4QrVoralFGJcdRiPVW3TUhEqLj9o6X//u1YqkIQltDZptTTzQ1NdMqyy61FKhKpZCZVafYEkLa0Wti2cH0S0XoU6tL8/tG1V2SiptOXXiVNCUqWk1k6cIDp10SKspfabll2rKqLShArmBCy//u/oUbWoEGGPSNF6TWg1VferVU2TCNXKN97Sl58bpOQ+ced7WIhqtFZKrNp+tKpt0tdfK+39OpLY0iO2LS7EVqXFcx3W9ZtV3dJXRahgpuJQqeUXcM0ShahEa+0a2eJfXVrfT1b1r74aUn/vvLulwzXlF1KIuEfUREvWYUN2f1gx1QpZf9ypXBcqo2i1cB2uoNe+WZ8dLFv56ylUSCXqT3Yq90lJLexaOGthHeKotYLqsLEywVbZDUwFrYrrD2eqTe4MlT5aah3KpmUVy6JVZYOuVcn6c12nMooW1aG2aVnFSrOTqtdWYqtqWe/2+tNFC1o81yGf1qKmZQ3LkpW/AV/muYLO6XGrcnn9qTtEpQ7VpmUZK83iHpCpuKur9Rdw/eI63LIVmpauw1vBSrNI9RdJhaO6F+rPoGlhhyesFYBlYc5Ks071VjMf1WCr2ukVKrk/3KR0eAUrAVZ1y6H+Vqg7wHe5VXlESmjh0TR2eDE7EFa941a1eqp3mGqHh6iUptWJu0MFa/nyOoetakKoOrd4p1UZY7UoWK/WOmpVNTMVqLS7Q3F0CFigVe2gVaWGaoOHqdTdocR6g7BmVjlmld2op9rqWSoeS0Oxli+fWemUVT3Ya6k6vEuFWnjAE5qsBoesapev0PYqptruVSodltwbrlhR54hV9YpQKm+NVbGwmhmrxgGryplE9aZuD+hpKhVLM5SuiN3fY1s1MBUeA6YKFY/wKhYd7qxozI7Xqg6pVr7Z/HYqUYlk0VCKB9KcrPo4rapnoZU4swAHNilCRVjvqVicrJq4rLBZYarWvL1+Ax4upwyVBqt1/V/XNNMAH2PKSos9Wa18o3nNX1s2/E1Q7UgRK4H1Lp38QyzQaojDqkYzg/7j3a2bUokqENghsGAmlcmqtW1FFfhGs+jrqUbFx4abcMxaL8esWVV2rRqYaq06g6YSlcCSk0MzYTXatKqZxX2ddoEwLXiX6kMTYxa3rFl1tqwqZ86Sfd3ju8CeScFoWFs6lf4+a9asSjtW9fA/XNe8Zm3LetnXPUs1KTKW2t+hZa2Db7nBhlW1oPJ8X0eq6Fiiv69tJqxa61aNQKU0Kw/39d2TJkXD0vb3Nc3NYBVxIo1oVcexks3K81TRsETLwikLg1Vv0aryKaLCyQqalXf7ukoVDUu2rLWMVWXNChr7unWyWXV4l+rypEmXL3///feXL0fB4paFTxquXbNuXcT2HsGqSlOBHp6sdl8GqPPncJ0/D/8djHSws/O9DjiKpsEBsWqsWDVwBSpHzJ6lAqivTuP6CrgiYXHL0gwOMy1Y1WAFNmvGBW9SfQeZ+ur0l19++Sn8Bq3z30fC0lYhYtWat5qJVFCBrbICPUp17tzpLz/99D+4Pv0UtSJh0eCA57JauAoN5wZDq1oxsHu6ApHqK4jUf/bv2rVt1679qBURS1eF6wCrzqzVTM0+0KsVyFQo1da2cePGtjbU+vI0NK2gmX3hU5XmrGpFBXKsvFmBkmrXtraNq1evWr169ca2XdGw6IwDTKRYhWuMg5UWOVb0dLxHK1ChAqlVry9btuz1VYi1PzKWnEjbcSKFKjToWGnGsVojjwO9WYEqFUgtWYRrCWi1bYuGJaqwdT1XYZ0Zq5nrvH4cKKj2I9WyRYsW4lq0aFkMLNHe6bjQMFhpBrOVrrF7nGrJooUvvvDC8y+88OJCiNbqjVGwsAq17b0utlXDrHUztLHyLNW2ttVQfwtfeH7Bc889t2DBC7Gx3n+fTjhge5+xbt1TMa2q4Ktm0Gjl0ViFUi14bv78efPmPxcbi9q7CBYohA3vYVb1M9bNmEETO8TKg409jGr+vLlzn507d958E1g0vVOwZsBqiGFViV+EsdrszXnBiOqZZ+Y888yzhPVSdCzR3nFuQIeq6FZ1+DUtdCDoxXnBgOrZZ+bMnj17jims7cphYQs61Ee18j9FVkqsUoTqacCa8+zc2FghwaqMZlXLVK3tnoyVEdWcObOfxgVaYVjhB9LbxRMVIlh10azK2ardk7EypJrNVGax1GBhe58ZxapSdKt2Lx7dRKT6Ey4NFu4NaYL/6tz33xnMDdCx2ls3YLCC1ZGt6oI4L2xo/YcHYxWdKhwLzzp8db7LsGO9s7l9Q3h311vNFLGC2cprsYpFFYK1irD+2xVhxpLB0nV3nVV1EK1aWzfTyxd2pBaVxOKhdNmqjW37P+2KcAi9tXNzeysVYU0kqylBJVYeG9nNUIVh7e+KdIZ0y7siWMHySFYzgjQwbH7Ha7EyR0VYOJTCsSHsDNu6AhGep8ArfTeHF6HWqkbEajM9d7M99agEFres1RGo+HTDVixCDFatsdUUjhUPDB46EjRPJavwuQUvLtkc8e/j81i8K9QWodbqqWCQY7XVU7GyQCWCBR0rChUEC184Q8EKBoOVRlZVcAfGavNWTw0MFqmeplwtikLF8+jWd9rbNwRnBIOlRlZTgnAXHN54a2CwRCX61bw/b476d27Hc37vQrCCEKwKI6tyyNUGr3V2q1RkFYNK7e4bgtoiVK0q8fZgezu93GqHh6hOO03F3X0LBQtWdbhVKVttplcwbP9dU1F37+gUVlPCrSrw9t1Qgps8M7Mnioq6OxTh5nY0KQ+3ErHq9E4JJoxKKcLdQW3DStNODGTlmc6eQCqlCAmrNNRqCpXgbu+UYCKpxOy+uYusKkKtysmqq9Mrw1ViqbgIO7kIy0OtgsKqwxslmGAqUYRdu3drGpa0mjqdqLq2dniiBBNNJV4I0kVFOL1Eb1XqqRJMOJVoWJ3csKborSo4V52eGET7gQqLcKcowunleqvy6VSCnR073d+u+oOK3uyiYytbTddZVYp25YVXXPULFRXhP7dwEU6fqrUqmT5dKcEd96nkiRlZhKVaqylgtRtyZbcEu1OOihvW1q6e3dOnT5+itaqAG3b3wMRgzyo4qSfVqMQThWxVrrUqR6uuHpvtKjhpUj9h9SMVP1tvYDUNbujp6dpjyypIV332pBgVj+5dPYRVqVpVTmcrWwc4QXGJbE9qUfHU0MXBKlOtSqZhu+rZY+ed+ILK9cQ9KUUVCODbie3hXJWqVqXTMFY9e/ZYL8Gg5uLrnpSiooYFVj1yR5gmRway2mnZKqi9+PpyTypRodXOPV1oNa1CtaqYNm06xcpquwpqLr4GrgRi9T8VTVh79vQ8CVblqlX5tOlPPolWH1izCvLF11+Ja6+/v/xdT+pQYXPfA1aAZWS1x5pV8HLYxdcJwkoGFRYhWj355LRp07KllR822MpSuwqGXXx97lxisJJDpVhNnzZtqrSaassqqLn4ehddfP0lvbK3J1WoAjt2AMkeylWJtCohK7x9xw6LVOrF19tIKxFYyaIKbN+xk6wAq1Rj9SRZ7TT/CrUgfwP/2bVtI198DVqJwUoaldZqirQqnfYEW31g2kqh0l98nQCs5FGB1QdhVlOmPfGENStBtT/04mvnsZJIBQ1LWD2hszohrKxRbQu7+NpprKRSBT78UFg9USGtKp4QVh9+aJXqdeXi64ULE4CVXCppdcK+lUK1UXvx9fPa61wcwkoyVeDDfYByDK3KVasTJ548Bjfv+9AGFV18PV+5+NpBrGRTBf617wOyOqFalZMVYO37lw2q0IuvHcNKOpVqdUK1OsFWH5iwMqKii68dx0o+VSSrY8c+MWNlQKW/+NoxLBdQgdW+fXuOHQOeJ0Kt9sW0MqKag1SOY7mBKorVvphWhlTiimK8Ut05LFdQBbqB5BNDq09iWQUjfQPKxddOYbmDKrrV3qj/S/VdpcK/AUexXEIV6N5r1yrQcz4iVchVn/FhuYUqihVQRbcK9PyX36ss2sXX8WO5hiqw19DqmCmrQNen+9s2wuFy7Iuv7WO5h0paHTOy+vfeWC8O6tq/cfUyUxdf28VyEZWRVYV5q0BX2+tLXoJjQBpBjS6+jhPLTVTde/8trco1VifMWgU2r6bvYK4RVfxYbqIytposcvWxCatA+5KFGKvoV1/bxHIVlQNWgfZF8C0YxypOLHdRgdXHbDV5snKub8rkycdovjJnBViUq6edxnIZVSyrvab+kvY/z5sbMVi2sdxGRVafsJX6nJdVK8BiKyexXEcFIwNbPa6xKpk8+XHuVx/t7U4WlvuoIllBsD45csC8leNYLqTq3vsR9yuwUp6jnzoZg/XJEcAybeUwlgup0OrAgSOfHHscrJTXfmRLq/+zYOUolhupsLUfOIJWkycXK68p8hWD1eNstTeQBCxXUmmtJmerr+tDq2NUgxasHMNyJxW2drTCEizWvLYWrU4esdTcncNyKVU3W1G70rxedEqxsDpgzcoRLJdS0W4QrE6ileY126Vo9fgRaztCh7DcSiV2g2RVrLkWoKRYKUJLDcsBLNdSidZ+5HG00lxjMlVr1d2fWO6lEq2dSrC4RHNNXHGxveZuF+u8wNr93Xm3UnWrVsXFldrrUsnqpI2GZQvrtMByMRW1K6BiK5/eajJZHbTcsKxj0duBnzvfE9h9/pxrqbBdHZRWFVqrUixCadWdYCx8O3Cow3PBc3QtgTupsF2xFcRKd214SZEoQjsNywYWXmNx+vRpuuoi7IUkrqDC6UpaFenec6CsuLjYfsOyirVxG/00wC/xUh6XUunaVVGZ7j1SiouK42hYlrHwpwHi2o/XEriRStOuIEZ+/XvvsNVRmw3LItaq1W1t23btoh8OuOr1Ra6kQqujXIIVIe/pVPQYWR09cuAje1bmsV7CF8JDttroxyguW/SS+6hEuyKrx4pC3tOprKj4sQuIdchuEZrHevEljBb+rMlVeIHKSy+6j4oPcIDq5IXHikRrV6z8RUVsZb8ITWPhVQOLlizDtQRD9bwbqWQJotXUkPfrqyh67LELWIQHP7ZbhGaxnoNoQSHiemnhi3gtgduouASPCqvisPfMxGCdxCI8YLsIzWHNnY8/DRC4FuKVPAuAaq7bqEQJHsUSfKwo7D0zS9DqG9mwuhOIhVcNgBaU4vMLUIqewnYbFZTgoaNfnPxG065Uq+yioqILF072Ho+rCM1hPTsXr9/BNR+knnUdlSjB4yfBqkhpV9r3jkas+INlCusZvH4H11yQch+VUoLfXEArg/ckZ6svjh+Oz8oE1uw5yIULoPCqC9dRcQmeolhVhFuVURF+A0V4JK4ijI3FWmKRlLuoZAn2cgmWGPwMhSIK1qkvPouzCE1gERcv2nIbFZTgoc++6OUSnGpgVSGssAjjC1YMrD89rV9/chcVl+Dh46ElqLUqUYvwQJzBioWlgEW9O0lUfDoGSvAbsjL8mS9+WYTH4y5CU1hRV1KpsLN/JmKllqDu5y6JIuz9/GjcRRgvVhKplM4eWoI6q5JCLkIHunucWMmlkp0drQpLja2yCws5WA5097iwkknFsZKdvVBTgvqfP1hBVjQ2HIg/WLaxkkxFM/vnFKvCwvxIP6uxpLDwhysOjQ32sZJKpe3sV8CqNOLPli2EKrwEwfrcgbHBLlbyqShWZ75BqsKyiFZTwOrKhbM8NjgQLBtYyaVSY3X2wpUfCgsrIv/M4qmFWIVnz/Q6FSzLWMmnwoEBYnX2ElAVlkT5Gev51LHOnnJmbLCOlWQqTay+xVgVRvt59KUcrK8d61jWsFxARXPoKRGrKdGsssnqWxEsJzqWFaxkU4XFamo0KxixAOuSo8EyjeUKqgMYq685VgW+qFZTQ4PVf1hJpwqLVVl0K1+B8x3LHJY7qHC2olhd08/shlZlZHXx7BkxvPcXlguo6EgQYnVGxKo0lhWODUqwDjoVrJhYyafSxAqoIFaF2TGtcGy49gMEq9fJYJl4wiL5VHyC4czZi0Q1wRfTyl+oa+97nWnv0bFcQCWf6OJYFYZ3diMrEaxL3545dfzoQcfaezQsl1BRrHojxsrIyl94A7CovfPckGgsV1DJxn7q7MUrV6+FzaERrHylEzFYV751uL1HwnIDlbax07xwIzxWhlYcrB/k3JBgLLdQYayosV9BqvBuZWwFwbpReO2aZnpPIJZbqGhi/xwndqjAGxMNYmVs5c+7cYPauzq9JwrLFVTKgSCdtrpW+JNhrIytfCUTb/z04zXHp/dwLNdQqY392o8/3ZhY6jNt5cvHKryaiCrUYbmKikerq9eAKi/bglXZxBs3fuQhy+kqVLGedgmV2AeKCrx+48bEEp8FK18BVWEi9oUSa/bT4tWjSaYyqMB8nyWrsomIlZgqlFizXUUljpmBamKZNSvfBKjC6z9e5X1hQrBwuYJKPiMoK7DAZ9EqOw+CdV2ccHC6ZSHWs8/gS2yTTsXjgjy9gBVYWGbVCuYGOThAFYqW5STWvLlz585zA9VHynnjq0hlPC9Et4L2LloWVKHjLQuw5s+fn2wqXbO6xFT5PhtW2N5vXJfju/NYixYscgcVjwtQgdejNPboVnBYqGtZjmO97gIqPrbhQ2aK1QSfLSuY3nXHOtjf93YHUmbJvi5OWhGV8cRuwgqqcOLPypTleH93AxX39a9lX49SgTGssAoJ65Ls7ymE1a3v69d++nli1AqMZUX7wp+vX7tKz9rLnWF3KlHREHrx6rXrP+M+0B+HVVmewLpIL8pKHaxu3S7wCu8Co1ZgTCucSJX+DjvDlMFSqDS7wMhTqDkr34Rb2p2hnBy6U4EKz8PIeR2a1c0CX5xW/vybN9WdYYpgMRW9il2lysuK18pXlnPz5i8q1mF6ex5vY0kqmhYuCaoYzcqUla/k1k05OTCWx5PVHU71y8Sbt0p9DlhBy7o58Rc5ZnkeK4wKp4Wbtwp8jlj5Cgjrekpg6alosMJU5Wc7ZJWdlzJYOqqzClVemc8hKxhJ9Vie3RsaUf1689YtM1QmrXxlt27d/PUXOtrRYnntrIOc1kOpSnwOWsHOMBzLc6do8HyVmNZFr/oJqW6P9zlq5Rt/W8WiofSQwOr2FNXHBlQFPoetfAWMpcxZhOWhptUtqA4x1SVZgLfzfY5b6bHO9OIpGg+N8LKrH+JjQA1VdgKssvMVrCuMdfigZzo8t6oDeGqv98xZMa3/euvW7TzTVFasEOv2LYF18eyZU4B1xBtNS9Yf7AA/P3WGT64LqjJfQqxCsL72TNPq1nZ1DdXtO1aorFn5svLuYB3+zOezBNYBt9ehUn/U1W1TWbSCAf7OHWxaP/HsQE3L5XUoQ4WtimYFPAv6M3Z1i1RWrXxl+Xfu3FYHrTOnvvhM1qE7o8X7P25V3NXFWHXHKpVlK+hZAkvXtEQddrsyVEr9cauiWeG2dSrrVoB1947a4eGAR9ahC7W0oQppVdapbFj5sgvuig6v1CFHy21dSxsqHBVEqyKqu+ZH0HisYIK/yx0eT9JwHbowWkIKQnXoM1l/8gjQFpU9K98EwNLUoT5a7tASuz8MFTd1WX/Yqu4W+H39ZeUrGUdNS9ShGi239Hg1VIc5VLj/U+rvznhb37RNK19ZDmDdVupQiZYrClGRok7Ve4abulJ/40p8/WoFU+ldZX+oRssNWlKKy49DJZo61V9Oma+frWAqvavsD9VofXY4yW2LpKhRKeXHTf3nX6n+7ubZpYrDCjv8b6IOZbSoEKltJUlLI0XlhzOV7FQ3b9+++9u9gmxf/1v509Nzc+4qLZ6jhZMptK0kaemkRPlxp+JQQasan57u718rcBowYOCAAWPz7ildC3aIohAVrf7tW6rUQa2UCBUc/0H9jR2Ay6ZXmh2oAQPlyi649xtHSylE0vpMo9UvXN1qR5eZEuWndCqovyx+1PD4B9jgsmrlR6dBgwbir4H4OTdHEy0oRNG2+leLIxUiBXs/Kj+x+7s3brx41PLxD/An0MqfPnDQ4EGD6Dd84j+y8jFa4twDFiIcIn7NlXiYJohEczEUFB/MUxopTflRqPLHioetefwDLaUrzUqkBss1SPmEa/w4fSFSkyctnCA04epOVO1xpA4eOgz7vhApHhTujZugPl7d47cQrjTzmRoccUGLvyf3iIoW9K1emLewFDXh6k4MlIiUXkoe0tz9rS9vbORHbzpbZq38g4Y8AGuI+C3/kNsTckBLFiJpcZcXpajhcsxLlB5CcaSg+Hph3yekRKOi8hs3YUzI49U9/kF+R638g4dEX2Pz+6gQdVpKKR4VtegUV3c4FEYKpS5eUqW4/Pryx8Z48IP9Dlr5B2fAGgK/Mug3L/12bk7fPXHUE6LVq3DpvbptMqlOUHoHD3Ht9XLxXVKqT0rljDd+vNptc1jmrNIzTKwxBeM4W6RFEwQ0LihFDdcR5hJeFsEUpr0fiUAdEYkiKCo+ndRv9/r6CrLMPPZ056wGPPgg/o0Pwi/+MN6GQgzREuE6e0blkvH6+CMBRmLRzPj+vRomdFKguPa+VYpPlbrXl5cb7fGq2wOdtBo6FD7EelB+hG/n5vXdk32Lp9NrV0O4pJcEk2KqmnZp7pRMihMnimuPI0VtSiM1PtbjldsDHOxXGUMzM4dm0if8EH8abY/PkVo0b4lwQS0y16kvFK8jBEZioWZ79UQf8ddQmoBJOmGgKFEXr3CkxDwlpHIm/I+Jx0sfGQ72K196puk1ZkIOVaIoRezzGi7oXRAv8IJ6RDAWU8iMF0WJlIAJ6g6dOFAKFEXqF3E2AaXGFWSZfshD0x2dr9IfHDYsk39lwn9l0ucI21k6LREu4qJiJC/IF4GBGJOxmeE6QkiohEyUJ3KiHiWhlOKjjp5TkGX+8ZqksjC3Dx42bLj4wE/wO/I2Z0uUopYLe5fwQjBMGIgBGZodPXwY2TTrMAqhESCRUi8yCSds5nooUXxQfVnRH59ue7Df+ePB9CHDdWvE8CjbYybk9WG4dFxYjNJLgAkxNCO14yzHOsdJCI1YSTJJJ+5RCMVdiiLFUrEen7I9JD0x5xnSBw8bYX7l5vdxuPRcwksBO/u1IMPV20twvGBD3Axf8DUqCSZ20kApXaoP9n1/NP8Qhw1OT8x5Bj7XkDHc/EMZW9AXyiW9sB4RjMSIDNGITbPwFr7vW1RiJsoTO8nSAyiKFBzOWPg/M8PiCSzr50X9AzNGPCTWCM1nw+0sKkUdl/DC/kUJAzEiu0hqvBiHFt1xCZCEEsVJOClQlCgsvliPR/k8ImOg5ROjts63+wc8MOzhkbAehs8Pj8RPD0fcHluQo3KpXgKMxZCM0AwW3XWNlSSTdOIeRVDjCnLNPR7YznxgQD8+R89eI0c9zL/4Y9Qo4+0x1LmQS8Tr9i0VjANrT7EAAAHbSURBVMjADNGITbfoxutk9BN+rWBiJ6o8goIulRX539duj8wcMsDuEznxPD8IzX5QxrCRo0fRGi0/GW1njVe5ZL4YTCFjtPDF9zESMXHdkZMKFePfxz9GDssYlB7PdxufFYMNHJI5YjSuR0aL9cjo8O2s3Pxxei9O2K2bTEZoBkvciUicJp1TX/74LON/T7v9UOaQgelxf6MOWMmnLTIyRzz8qHY9Ar9022NyudWrYEKMzADtpuImfG4S0S36ElLSMvXlFeSOifbvPfrIqBGZGQPtP3uaGCuliw0akjn8odF/+MOjj/4BFn2i/5bbWbnc6wUYiCEZmgm1kEV33CUkVJJMfTn5uVlGfz9vPzJy2NAhgwb4Hf3mHLbSPI04OAPR+MGHLCjHvHF9WjFGIzX9+k0QaZQgT+RksEaNHJ6ZMXigw0YJttKpDXogY+iwESNH67+vsQCW06db9wyW/ity8grGj/2j7u8ZPXLEsMyMBxIm1I9WYU/vDxo8JGNo5rDhIx56eNQjY0AsjMxojcvLL8jNzRo9auRDI4YPy8zMGDJ4kK0n2j1jFfGlzWNzx0+YUFCQn5eXl5OTA/U5Dv6AjfyCggkTxueOzXbDo3SHlTfWfav7Vvetkrv+H8CYRBSfMBUuAAAAAElFTkSuQmCC" width = "45px" height="45px">
+				Testing Portal 
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		
-		<center>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				</ul>
+				<form class="form-inline">
+					<div class="input-group mr-md-5">
+						<div class="input-group-prepend">
+							<div class="input-group-text">Loaded:</div>
+						</div>
+						<input type="text" class="form-control" id="filename" placeholder="No experiment loaded" readonly />
+					</div>
+				</form>
 
-			<form action = "testa.php" method = "GET">
-				<font face="verdana" style="font-size:18px" >Your ID<font>
-			<input type = "number" id = "ID">
-			<input type = "submit" value = "Next>">	
-			</form>
+				<form class="form-inline">
+					<div class="form-group mr-md-5 mt-2 mt-sm-0">
+						<input type="file" id="browse" name="fileupload" style="display: none" onChange="handleChange(event);" />
+						<button class="btn btn-primary mr-sm-2 mdi mdi-upload" type="button" id="file_button" onclick="handleBrowseClick();" hidden="true">
+							<span class="d-none d-sm-inline d-lg-none d-xl-inline">Load local file</span>
+						</button>
+						
+						<select id="exampleTasks" class="form-control mx-sm-2" selected="false" onchange="selectExampleTask()">>
+							<option disabled selected value>Choose experiment</option>
+							
+								<option value="osexp/testa.osexp">Test A</option>
+							
+								<!--<option value="osexp/testb.osexp">Test B</option>-->
+							
+						</select>
+					</div>
+				</form>
+				<form class="form-inline mt-2 mt-lg-0">
+					<div class="btn-group mr-2" role="group">
+						<button class="btn mdi mdi-console" id="console_button" type="button" onclick="toggleConsole(); return false" hidden="true">
+							<span class="d-lg-none d-xl-inline">Console</span>
+						</button>
+						<button class="btn mdi mdi-bug" id="debug_button" status="off" type="button" onclick="toggleDebug(); return false" hidden="true">
+							<span class="d-sm-none d-xl-inline">Debug</span>
+						</button>
+						<button class="btn mdi mdi-fullscreen" id="fullscreen_button" status="off"
+							type="button" onclick="toggleFullscreen(); return false" hidden="true">
+							<span class="d-lg-none d-xl-inline">Fullscreen</span>
+						</button>
+					</div>
+					<button class="btn btn-success mdi mdi-play" id="run_button" type="button" status="run" onclick="runExperiment(); return false" disabled>
+						<span class="d-lg-none d-xl-inline">Run</span>
+					</button>
+				</form>
+			</div>
+		</nav>
 
-		</center>
+		<!-- Body - Experiment canvas and form container -->
+		<main class="d-flex container justify-content-center flex-column" style="flex: 1">
+			<!-- Body - OsWeb section -->
+			<div class='osweb-canvas-container'>
+				<div id="osweb_div" class='aspectwrapper'></div>
+			</div>
+			<!-- Body - Console section -->
+			<div id="console_div">
+				<div id="osweb_console" style="display: none;">
+					<textarea id="osweb_console_text" rows="4" cols="80" style="width:100%;background-color:#000000;color:#00FF00;"></textarea>
+				</div>
+			</div>
+		</main>
 
-	</body>
 
+	<!--	<footer class="text-center bg-light text-muted">
+			osweb 1.1.0 — Copyright Jaap Bos, Daniël Schreij & Sebastiaan Mathôt 2016-2018<br>
+			OSWEB is distributed under the terms of the GNU General Public License 3.
+		</footer>	-->
+
+	</div>
+
+	<script>
+		// Create the context container for the experiment definitions.
+		var context = {
+			confirm: confirm,
+			debug: false,
+			fullScreen: true,
+			introClick: true,
+			introScreen: true,
+			mimetype: '',
+			name: 'test',
+			onConsole: onConsoleHandler,
+			onFinished: onFinishedHandler,
+			onLog: onLogHandler,
+			prompt: prompt,
+			scaleMode: 'exactFit',
+			source: null,
+			subject: null,
+			target: null
+		};
+
+		// Retrieve the runner object from the osweb library.
+		var runner = osweb.getRunner('osweb_div');
+
+		// Set position of notifications
+		alertify.set('notifier', 'position', 'bottom-right');
+
+		// Extend existing 'alert' dialog
+		if (!alertify.errorAlert) {
+			//define a new errorAlert base on alert
+			alertify.dialog('errorAlert', function factory() {
+				return {
+					build: function () {
+						var errorHeader = '<span class="fa fa-times-circle fa-2x" ' +
+							'style="vertical-align:middle;color:#e10000;">' +
+							'</span> Application Error';
+						this.setHeader(errorHeader);
+					}
+				};
+			}, true, 'alert');
+		}
+
+		// Set event callback for handling error messages using alertify.
+		window.onerror = function (msg, url, line, col, error) {
+			var text = '<p><b>' + msg + '</b></p>' + '<p>See console for further details</p>';
+			alertify.errorAlert(text);
+		}
+
+		// Prevent the run/stop button from keeping focus after the subject nr dialog box is
+		// closed. Otherwise the stop button is activated when users press spacebar for a
+		// response to the canvas.
+		document.getElementById('run_button').onfocus = function () {
+			this.blur();
+		};
+
+		// Hack to set the value of the file upload button
+		document.getElementById('file_button').text = 'Select file';
+
+		/** Disable some buttons once an experiment is loaded. */
+		function buttonsSetToFileLoaded() {
+			document.getElementById('run_button').disabled = false;
+		}
+
+		/** Method for handling the hidden file load button. */
+		function handleBrowseClick() {
+			// Simulate a file input click.
+			var fileInput = document.getElementById('browse');
+			fileInput.click();
+		}
+
+		/**
+		 * Method for handling the hidden file load button.
+		 * @param {Object} event - The change event.
+		 */
+		function handleChange(event) {
+			// Update the button status.
+			buttonsSetToFileLoaded();
+
+			// Update the interface.
+			var fileInput = document.getElementById('browse');
+			var textInput = document.getElementById('filename');
+			textInput.value = fileInput.value.split('\\').pop().split('/').pop();
+
+			// Send feedback to the user.
+			alertify.message('Loaded local file: ' + textInput.value);
+
+			// Only select the first file.
+			context.source = event.target.files[0];
+		}
+
+		function selectExampleTask() {
+			// Update the button status.
+			buttonsSetToFileLoaded();
+
+			var exampleTasks = document.getElementById("exampleTasks");
+			var selectedTask = exampleTasks.options[exampleTasks.selectedIndex].value;
+
+			// context.mimetype = items[0] + '/';
+			context.source = selectedTask;
+
+			var textInput = document.getElementById('filename');
+			const elements = selectedTask.split('/')
+			if( elements.length === 1) {
+				textInput.value = elements[0]
+			} else {
+				textInput.value = elements.pop()
+			}
+		}
+
+		/** Show/hide console used by the console print method. */
+		function toggleConsole() {
+			var button = document.getElementById('console_button');
+			var c = document.getElementById('osweb_console');
+			if (c.style.display === 'none') {
+				// Set the console handler
+				context.onConsole = onConsoleHandler;
+
+				// Set interface.
+				c.style.display = '';
+				button.classList.add('btn-primary');
+			} else {
+				// Clear the console handler
+				context.onConsole = null;
+
+				// Set interface.
+				c.style.display = 'none';
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Enabled/Disable debugger. */
+		function toggleDebug() {
+			var button = document.getElementById('debug_button');
+			if (button.getAttribute('status') === 'off') {
+				// Enabled the fullScreen mode.
+				context.debug = true;
+
+				// Set the interface.
+				button.setAttribute('status', 'on');
+				button.classList.add('btn-primary');
+			} else {
+				// Disable the fullscreen mode.
+				context.debug = false;
+
+				// Set the interface.
+				button.setAttribute('status', 'off');
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Show canvas in fullscreen mode (Esc minimizes it again) */
+		function toggleFullscreen() {
+			var button = document.getElementById('fullscreen_button');
+			if (button.getAttribute('status') === 'off') {
+				// Enabled the fullScreen mode.
+				context.fullScreen = true;
+
+				// Set the interface.
+				button.setAttribute('status', 'on');
+				button.classList.add('btn-primary');
+			} else {
+				// Disable the fullscreen mode.
+				context.fullScreen = false;
+
+				// Set the interface.
+				button.setAttribute('status', 'off');
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Runs an experiment loaded from file. */
+		function runExperiment() {
+			// 'Run experiment' has been clicked
+			buttonsSetToFileLoaded();
+
+			if (document.getElementById('run_button').getAttribute('status') === 'run') {
+				document.getElementById('run_button').setAttribute('status', 'stop');
+				document.getElementById('run_button').innerHTML = 'Stop';
+				document.getElementById('run_button').classList.remove('btn-success', 'mdi-play');
+				document.getElementById('run_button').classList.add('btn-danger', 'mdi-stop');
+
+				// Set the fullscreen toggle.
+				context.fullScreen = (document.getElementById('fullscreen_button').getAttribute('status') === 'on');
+
+				// Run the experiment within the Runner with the given context.
+				runner.run(context);
+			} else {
+				// Stop the experiment
+				alertify.confirm('Stopping experiment', 'Are you sure you want to abort the experiment?',
+					function () {
+						runner.exit();
+					},
+					function () {
+						/* What to do when cancelled */
+					})
+				.set('labels', {
+					ok: 'Yes',
+					cancel: 'No'
+				});
+			}
+		}
+
+		/**
+		 * Function to handle confirm dialog messages from the runner.
+		 * @param {String} title - The title of the dialog box.
+		 * @param {String} message - The message qwithin the dialog box.
+		 * @param {Object} onConfirm - The confirm event.
+		 * @param {Object} onCancel - The cancel event.
+		 */
+		function confirm(title, message, onConfirm, onCancel) {
+			alertify.confirm(
+				title,
+				message,
+				function () {
+					onConfirm();
+				},
+				function () {
+					onCancel();
+				}.bind(this)
+			).showModal();
+		}
+
+		/**
+		 * Function to handle input prompt dialog messages from the runner.
+		 * @param {String} title - The title of the dialog box.
+		 * @param {String} message - The message qwithin the dialog box.
+		 * @param {String} defaultValue - The default value for the input field.
+		 * @param {String} dataType - The datatype to store.
+		 * @param {Object} onConfirm - The confirm event.
+		 * @param {Object} onCancel - The cancel event.
+		 */
+		function prompt(title, message, defaultValue, dataType, onConfirm, onCancel) {
+			alertify.prompt(
+				title,
+				message,
+				defaultValue,
+				function (evt, value) {
+					onConfirm(value);
+				},
+				function () {
+					onCancel();
+				}.bind(this)
+			).showModal();
+		}
+
+		/**
+		 * Callback function to print console text to an HTML element.
+		 * @param {String} text - A line of text to print to a console element.
+		 */
+		function onConsoleHandler(text) {
+			// Log the session data to the console.
+			if (text !== null) {
+				// Add the text to the console window.
+				var a = document.getElementById('osweb_console_text').value;
+				a = a + text + '\r\n';
+				document.getElementById('osweb_console_text').value = a;
+			}
+		}
+
+		/** Callback function for processing after an experiment is finished.
+		 * @param {Object} data - The result data.
+		 * @param {Object} sessionData - The session data.
+		 */
+		function onFinishedHandler(data, sessionData) {
+
+			// Reset the run button.
+			document.getElementById('run_button').value = 'Run experiment';
+			document.getElementById('run_button').setAttribute('status', 'run');
+			document.getElementById('run_button').innerHTML = 'Run';
+			document.getElementById('run_button').classList.remove('btn-danger', 'mdi-stop');
+			document.getElementById('run_button').classList.add('btn-success', 'mdi-play');
+
+			// Log the optional data to the console.
+			if (data !== null) {
+				console.log('-- experiment data --');
+				console.log(data);
+			}
+
+			// Log the optional session data to the console.
+			if (sessionData !== null) {
+				console.log('-- experiment session data --');
+				console.log(sessionData);
+			}
+		}
+
+		/**
+		 * Callback function for processing log data
+		 * @param {Object} data - The result data.
+		 */
+		function onLogHandler(data) {
+			// Log the optional data to the console.
+			if (data !== null) {
+				console.log(data);
+			}
+		}
+	</script>
+</body>
 
 </html>
