@@ -11,10 +11,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>osweb 1.2.5</title>
+	<title>Testing App</title>
 	<link href="https://cdn.materialdesignicons.com/2.4.85/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
 	<!-- JavaScript -->
-<link rel="shortcut icon" href="osdoc.png"><link href="css/vendors~osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/vendors~extra.1.2.5.bundle.css" rel="stylesheet"><script type="text/javascript" src="js/vendors~osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/vendors~extra.1.2.5.bundle.js"></script><script type="text/javascript" src="js/extra.1.2.5.bundle.js"></script></head>
+<link rel="shortcut icon" href="img/favicon.ico"><link href="css/vendors~osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/vendors~extra.1.2.5.bundle.css" rel="stylesheet"><script type="text/javascript" src="js/vendors~osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/vendors~extra.1.2.5.bundle.js"></script><script type="text/javascript" src="js/extra.1.2.5.bundle.js"></script></head>
 
 <body>
 	<!-- <script src="js/PixiTextInput.js"></script> -->
@@ -22,8 +22,8 @@
 	<div class="d-flex h-100 flex-column">
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">
-				<img alt="Brand" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKgSURBVEiJtZVLSJRRFMd/93uMOowmaKKjlEHkoxYWDRm2KGlpDwikENpVIPSANi567MJlq8BdFC2SogdRFBRZCwMjKCIfFaJlo4WhM77G73FbOE193/3GKayzO+fe8/+fe87/3isAqrsStcIVnUiagUJWZkkBjyWyY7i9aFBUdyVqhSN6geIVAvttCmSjJlzR+R/AAYol4oKRbktWqy/VOFBjEqvQqYgIJDA+I+mLO9wYsOifdLPmCtgt1l1KyqBFQ4NzTXm0bTIRgO3CkxEbgOa1BoYGErj+zuL88xRWFh4jKGhqcLmlgO2VOgCWC21353kZdwCIVehc21uAocHBepOqIo0j9+dJOSqWFkRwMhbKgAPcHrIy4AB9cYc77+2Mv6NK5/jWUOAJFIJoRHBss3fz01G1tJ5R2+MfbQhRVajWq0T2bTDRhTf2ekIlePPV23RDg5b1ascVgl1rdI/vSIjPqDr4nHRxfeGdvtxAgqjvmHOWJEhmroQF27tS+SctKi3w9idIGRly7xhYHRbKHoVgzldVKFBnS5bn68ispZ5VSR/z3buwqVb10/IN75o/N5DgxZi3J4YG5RGVpCwsMH3ZvWNqPxWCm4OWMtS6ElUdNSXeVJnOzUkwMOnyaNg7vaZKlWBb1Bt78NFm6Lv6IAWO8ExPionZX+dorTM8t7QsLDhUb2b88VnJ2WepICiyvqbVqzSu7MnPAH+bk1x9a2G70LbRpLJwaS6fEi6H7y0wMh38nGYlAIiEBKdiIVprDSIh76CTi5LufpuLfYuB8vydIEGOfzhPhy3lOtG0mr7MSF6NO8tewrRNG0sfNPuX25VygiWY0yQPNYnsAKb+PjunTeqOflobbi8aBNkoJLeAxD8ATiDp1m294cOJ8OcfLI/qrsFgr74AAAAASUVORK5CYII=">
-				OSWeb
+				<img alt="Brand" src="img/TestTube.png" height="45px">
+			
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -45,12 +45,11 @@
 				<form class="form-inline">
 					<div class="form-group mr-md-5 mt-2 mt-sm-0">
 						<input type="file" id="browse" name="fileupload" style="display: none" onChange="handleChange(event);" />
-						<button class="btn btn-primary mr-sm-2 mdi mdi-upload" type="button" id="file_button" onclick="handleBrowseClick();">
+						<button class="btn btn-primary mr-sm-2 mdi mdi-upload" type="button" id="file_button" onclick="handleBrowseClick();" hidden>
 							<span class="d-none d-sm-inline d-lg-none d-xl-inline">Load local file</span>
 						</button>
-						or
 						<select id="exampleTasks" class="form-control mx-sm-2" selected="false" onchange="selectExampleTask()">>
-							<option disabled selected value>Choose example experiment</option>
+							<option disabled selected value>Choose experiment</option>
 							
 								<option value="filteronline.osexp">Filter Task</option>
 							
@@ -59,10 +58,10 @@
 				</form>
 				<form class="form-inline mt-2 mt-lg-0">
 					<div class="btn-group mr-2" role="group">
-						<button class="btn mdi mdi-console" id="console_button" type="button" onclick="toggleConsole(); return false">
+						<button class="btn mdi mdi-console" id="console_button" type="button" onclick="toggleConsole(); return false" hidden>
 							<span class="d-lg-none d-xl-inline">Console</span>
 						</button>
-						<button class="btn mdi mdi-bug" id="debug_button" status="off" type="button" onclick="toggleDebug(); return false">
+						<button class="btn mdi mdi-bug" id="debug_button" status="off" type="button" onclick="toggleDebug(); return false" hidden>
 							<span class="d-sm-none d-xl-inline">Debug</span>
 						</button>
 						<button class="btn mdi mdi-fullscreen" id="fullscreen_button" status="off"
@@ -93,8 +92,8 @@
 
 
 		<footer class="text-center bg-light text-muted">
-			osweb 1.2.5 — Copyright Jaap Bos, Daniël Schreij & Sebastiaan Mathôt 2016-2019<br>
-			OSWEB is distributed under the terms of the GNU General Public License 3.
+			This experiment is conducted under the approval of Lovejoy Independent Review Board<br>
+			- Surya Manikhandan, Lovejoy High School
 		</footer>
 
 	</div>
