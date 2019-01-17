@@ -1,0 +1,248 @@
+<head>
+
+	<title>Media Multitasking Survey</title>
+
+	<style>
+		body
+		{
+
+			padding:0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 0vh;
+			font-family: arial;
+		}
+		.box
+		{
+			width: 600px;
+			height: 1px;
+			margin:10px;
+		}
+		p
+		{
+			margin: 0;
+			padding: 0;
+			font-size: 18px;
+		}
+		h1
+		{
+			margin-bottom: 3px;
+			padding: 0;
+			font-size: 12px;
+		}
+		.rating
+		{
+			position: relative;
+			display: flex;
+			flex-direction: row-reverse;
+			margin-top: 5px;
+			border: 1px solid #000;
+			box-sizing: border-box;
+			background-color: #03A9F4;
+		}
+		.rating input
+		{
+			display: none;
+		}
+		.rating label
+		{
+			display: block;
+			cursor: help;
+			width:150px;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: .7s;
+			background:#fff;
+			color: #000;
+			border-right: 1px solid #000;
+		}
+		.rating input[type="radio"]:hover ~ label
+		{
+			background: transparent;
+		}
+		.rating input[type="radio"]:checked ~ label
+		{
+			background: transparent;
+		}
+	</style>
+
+	<script type="text/javascript">
+		
+		function calcscore()
+		{
+			var sum = 0;
+
+						var radios = document.getElementsByName('rating_1_1');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}
+						var radios = document.getElementsByName('rating_1_2');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}
+						var radios = document.getElementsByName('rating_1_3');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}
+			var radios = document.getElementsByName('rating_2_1');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}
+						var radios = document.getElementsByName('rating_2_2');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}			var radios = document.getElementsByName('rating_2_3');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}			var radios = document.getElementsByName('rating_3_1');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}			var radios = document.getElementsByName('rating_3_2');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}			var radios = document.getElementsByName('rating_3_3');
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+			 if (radios[i].checked)
+			 {
+			  sum += parseInt(radios[i].value,10);
+			  break;
+			 }
+			}
+			var MMI = sum/9;
+			var MMIRounded = MMI.toFixed(4);
+			document.getElementById("scoredisp").innerHTML = "Your MMI Score: "+ MMIRounded;
+		}
+	</script>
+
+</head>
+
+<body>
+
+
+		<div class = "box">
+			<p>While watching TV, how often do you engage in the following activities…</p>
+			<hr>
+			<h1>Listening to music:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_1_1" id = "rate1_4" value = "4"><label for="rate1_4">Most/all the time</label>
+				<input type = "radio" name = "rating_1_1" id = "rate1_3" value = "3"><label for="rate1_3">Some of the time</label>
+				<input type = "radio" name = "rating_1_1" id = "rate1_2" value = "2"><label for="rate1_2">A little of the time</label>
+				<input type = "radio" name = "rating_1_1" id = "rate1_1" value = "1"><label for="rate1_1">Never</label>
+			</div>
+			<h1>Sending messages via phone or computer:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_1_2" id = "rate2_4" value = "4"><label for="rate2_4">Most/all the time</label>
+				<input type = "radio" name = "rating_1_2" id = "rate2_3" value = "3"><label for="rate2_3">Some of the time</label>
+				<input type = "radio" name = "rating_1_2" id = "rate2_2" value = "2"><label for="rate2_2">A little of the time</label>
+				<input type = "radio" name = "rating_1_2" id = "rate2_1" value = "1"><label for="rate2_1">Never</label>
+			</div>
+			<h1>Using social networking sites:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_1_3" id = "rate3_4" value = "4"><label for="rate3_4">Most/all the time</label>
+				<input type = "radio" name = "rating_1_3" id = "rate3_3" value = "3"><label for="rate3_3">Some of the time</label>
+				<input type = "radio" name = "rating_1_3" id = "rate3_2" value = "2"><label for="rate3_2">A little of the time</label>
+				<input type = "radio" name = "rating_1_3" id = "rate3_1" value = "1"><label for="rate3_1">Never</label>
+			</div>
+
+				<br><br>
+
+			<p>While using social network sites, how often do you engage in the following activities…</p>
+			<hr>
+			<h1>Listening to music:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_2_1" id = "rate4_4" value = "4"><label for="rate4_4">Most/all the time</label>
+				<input type = "radio" name = "rating_2_1" id = "rate4_3" value = "3"><label for="rate4_3">Some of the time</label>
+				<input type = "radio" name = "rating_2_1" id = "rate4_2" value = "2"><label for="rate4_2">A little of the time</label>
+				<input type = "radio" name = "rating_2_1" id = "rate4_1" value = "1"><label for="rate4_1">Never</label>
+			</div>
+			<h1>Sending messages via phone or computer:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_2_2" id = "rate5_4" value = "4"><label for="rate5_4">Most/all the time</label>
+				<input type = "radio" name = "rating_2_2" id = "rate5_3" value = "3"><label for="rate5_3">Some of the time</label>
+				<input type = "radio" name = "rating_2_2" id = "rate5_2" value = "2"><label for="rate5_2">A little of the time</label>
+				<input type = "radio" name = "rating_2_2" id = "rate5_1" value = "1"><label for="rate5_1">Never</label>
+			</div>
+			<h1>Watching TV:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_2_3" id = "rate6_4" value = "4"><label for="rate6_4">Most/all the time</label>
+				<input type = "radio" name = "rating_2_3" id = "rate6_3" value = "3"><label for="rate6_3">Some of the time</label>
+				<input type = "radio" name = "rating_2_3" id = "rate6_2" value = "2"><label for="rate6_2">A little of the time</label>
+				<input type = "radio" name = "rating_2_3" id = "rate6_1" value = "1"><label for="rate6_1">Never</label>
+			</div>
+
+				<br><br>
+
+			<p>While sending messages via phone or computer, how often do you engage in the following activities…</p>
+			<hr>
+			<h1>Listening to music:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_3_1" id = "rate7_4" value = "4"><label for="rate7_4">Most/all the time</label>
+				<input type = "radio" name = "rating_3_1" id = "rate7_3" value = "3"><label for="rate7_3">Some of the time</label>
+				<input type = "radio" name = "rating_3_1" id = "rate7_2" value = "2"><label for="rate7_2">A little of the time</label>
+				<input type = "radio" name = "rating_3_1" id = "rate7_1" value = "1"><label for="rate7_1">Never</label>
+			</div>
+			<h1>Using social networking sites:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_3_2" id = "rate8_4" value = "4"><label for="rate8_4">Most/all the time</label>
+				<input type = "radio" name = "rating_3_2" id = "rate8_3" value = "3"><label for="rate8_3">Some of the time</label>
+				<input type = "radio" name = "rating_3_2" id = "rate8_2" value = "2"><label for="rate8_2">A little of the time</label>
+				<input type = "radio" name = "rating_3_2" id = "rate8_1" value = "1"><label for="rate8_1">Never</label>
+			</div>
+			<h1>Watching TV:</h1>
+			<div class="rating">
+				<input type = "radio" name = "rating_3_3" id = "rate9_4" value = "4"><label for="rate9_4">Most/all the time</label>
+				<input type = "radio" name = "rating_3_3" id = "rate9_3" value = "3"><label for="rate9_3">Some of the time</label>
+				<input type = "radio" name = "rating_3_3" id = "rate9_2" value = "2"><label for="rate9_2">A little of the time</label>
+				<input type = "radio" name = "rating_3_3" id = "rate9_1" value = "1"><label for="rate9_1">Never</label>
+			</div>
+		<br>
+		<a href ="javascript: calcscore()"><p>SCORE  </p></a><i><b><p id="scoredisp"></p></b></i>
+<hr>
+<hr>
+		</div>
+		
+</body>

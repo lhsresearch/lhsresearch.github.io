@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--
+    OSWEB is distributed under the terms of the GNU General Public License 3.
+    The full license should be included in the file COPYING,
+    or can be obtained from: http://www.gnu.org/licenses/gpl.txt
+-->
+<html>
+
+<head>
+	<!-- Head - general definitions -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>osweb 1.2.5</title>
+	<link href="https://cdn.materialdesignicons.com/2.4.85/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+	<!-- JavaScript -->
+<link rel="shortcut icon" href="img/favicon.ico"><link href="css/vendors~osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/osweb.1.2.5.bundle.css" rel="stylesheet"><link href="css/vendors~extra.1.2.5.bundle.css" rel="stylesheet"><script type="text/javascript" src="js/vendors~osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/osweb.1.2.5.bundle.js"></script><script type="text/javascript" src="js/vendors~extra.1.2.5.bundle.js"></script><script type="text/javascript" src="js/extra.1.2.5.bundle.js"></script></head>
+
+<body>
+	<!-- <script src="js/PixiTextInput.js"></script> -->
+	<!-- Body - Command bar definitions -->
+	<div class="d-flex h-100 flex-column">
+		<nav class="navbar navbar-expand-md navbar-light bg-light">
+			<a class="navbar-brand" href="/">
+				<img alt="Brand" src="img/TestTube.png" width="45px">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				</ul>
+				<form class="form-inline">
+					<div class="input-group mr-md-5">
+						<div class="input-group-prepend">
+							<div class="input-group-text">Loaded:</div>
+						</div>
+						<input type="text" class="form-control" id="filename" placeholder="No experiment loaded" readonly />
+					</div>
+				</form>
+
+				<form class="form-inline">
+					<div class="form-group mr-md-5 mt-2 mt-sm-0">
+						<input type="file" id="browse" name="fileupload" style="display: none" onChange="handleChange(event);" />
+						<button class="btn btn-primary mr-sm-2 mdi mdi-upload" type="button" id="file_button" onclick="handleBrowseClick();" hidden>
+							<span class="d-none d-sm-inline d-lg-none d-xl-inline">Load local file</span>
+						</button>
+						<select id="exampleTasks" class="form-control mx-sm-2" selected="false" onchange="selectExampleTask()">>
+							<option disabled selected value>Choose example experiment</option>
+							
+								<option value="osexp\filteronlineversion.osexp">Filter Task</option>
+
+						</select>
+					</div>
+				</form>
+				<form class="form-inline mt-2 mt-lg-0">
+					<div class="btn-group mr-2" role="group">
+						<button class="btn mdi mdi-console" id="console_button" type="button" onclick="toggleConsole(); return false" hidden>
+							<span class="d-lg-none d-xl-inline">Console</span>
+						</button>
+						<button class="btn mdi mdi-bug" id="debug_button" status="off" type="button" onclick="toggleDebug(); return false"hidden>
+							<span class="d-sm-none d-xl-inline">Debug</span>
+						</button>
+						<button class="btn mdi mdi-fullscreen" id="fullscreen_button" status="off"
+							type="button" onclick="toggleFullscreen(); return false">
+							<span class="d-lg-none d-xl-inline">Fullscreen</span>
+						</button>
+					</div>
+					<button class="btn btn-success mdi mdi-play" id="run_button" type="button" status="run" onclick="runExperiment(); return false" disabled>
+						<span class="d-lg-none d-xl-inline">Run</span>
+					</button>
+				</form>
+			</div>
+		</nav>
+
+		<!-- Body - Experiment canvas and form container -->
+		<main class="d-flex container justify-content-center flex-column" style="flex: 1">
+			<!-- Body - OsWeb section -->
+			<div class='osweb-canvas-container'>
+				<div id="osweb_div" class='aspectwrapper'></div>
+			</div>
+			<!-- Body - Console section -->
+			<div id="console_div">
+				<div id="osweb_console" style="display: none;">
+					<textarea id="osweb_console_text" rows="4" cols="80" style="width:100%;background-color:#000000;color:#00FF00;"></textarea>
+				</div>
+			</div>
+		</main>
+
+
+		<footer class="text-center bg-light text-muted">
+			This experiment is conducted under the approval of the Lovejoy Independent Review Board<br>
+			-Surya Manikhandan, Lovejoy High School
+		</footer>
+
+	</div>
+
+	<script>
+		// Create the context container for the experiment definitions.
+		var context = {
+			confirm: confirm,
+			debug: false,
+			fullScreen: true,
+			introClick: true,
+			introScreen: true,
+			mimetype: '',
+			name: 'test',
+			onConsole: onConsoleHandler,
+			onFinished: onFinishedHandler,
+			onLog: onLogHandler,
+			onError: errorHandler,
+			prompt: prompt,
+			scaleMode: 'exactFit',
+			source: null,
+			subject: null,
+			target: null
+		};
+
+		// Retrieve the runner object from the osweb library.
+		var runner = osweb.getRunner('osweb_div');
+
+		// Set position of notifications
+		alertify.set('notifier', 'position', 'bottom-right');
+
+		// Extend existing 'alert' dialog
+		if (!alertify.errorAlert) {
+			//define a new errorAlert base on alert
+			alertify.dialog('errorAlert', function factory() {
+				return {
+					build: function () {
+						var errorHeader = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACDUlEQVRYhcXXz0sVURQH8M8MD5EIERdhISIuokUrg2gRBZUS1Z8hEW2iTbSPEKJ/IFr0w3/BiqiEdi0SFWtdWdFCCKHCkuq0mPfwNVjvzlPf+8JhmDtzzvd7zj1z751MIqK4HMYJHMII+uuPV/EWc5jFy4zfqbFbEfcFV4I3QSTau+Bq0LcVYsFksFKBuGwrwfkgr0reHzzYAnHZHgUDqeR7gqVtJG/YUjBY5stK5AN4joMtdC7jRWnsCIZb+L3C8YzPm2WeB48Ts5nexH860fdJc080N8cFTLTIYDtwChf/ElAv/fUOkDdwrdGUjQpcsrGodAL9uEwx7zVMdpC8gcmgluMo9nVBwCCO5RjvAnkD4znGuihgLMdoFwWM5lLX6J3BQLVdageQKw4T3cJqrthYuoXlGhYUx6wq2BUMlcfaELAgOLMDe3+qncuCXnzS2b2Aovf25hnfcbeNALM4W7enbfjfr3MTDAVrFUr3OuhpRApqwWIF/7Won55yyPiAGxXUz2SsN24yfmKmgv/NrPz1BT3BXGIG98oRgzuJvvPN1SsHGQ7eJwT5EZxu8puoj7Xy+xjFH9W/EexPFBH1eV8MfiWSH0iaoHol5rfxe59vmfkmInqDqcTS/m+qpqJYa9pDMBrcDr5VIP4S3ErJOmv1QpOQ3YrGO6k4RY3Y6OZ1xe/5Ap7hYcbXlLh/AHcmXTfceSpqAAAAAElFTkSuQmCC"' +
+							'style="vertical-align:middle;color:#e10000;">' +
+							'</span> Application Error';
+						this.setHeader(errorHeader);
+					}
+				};
+			}, true, 'alert');
+		}
+
+		// Callback function to handle errors
+		function errorHandler (msg, url, line, col, error) {
+			let text = '<p><b>' + msg + '</b></p>'
+			text += '<p>See ' + (url && url.includes('osdoc')
+				? '<a href="'+url+'" target="_BLANK">the osweb documentation</a>'
+				: 'the console') + ' for further details</p>';
+			alertify.errorAlert(text);
+		}
+
+		// Set event callback for handling error messages using alertify.
+		window.onerror = errorHandler
+
+		// Prevent the run/stop button from keeping focus after the subject nr dialog box is
+		// closed. Otherwise the stop button is activated when users press spacebar for a
+		// response to the canvas.
+		document.getElementById('run_button').onfocus = function () {
+			this.blur();
+		};
+
+		// Hack to set the value of the file upload button
+		document.getElementById('file_button').text = 'Select file';
+
+		/** Disable some buttons once an experiment is loaded. */
+		function buttonsSetToFileLoaded() {
+			document.getElementById('run_button').disabled = false;
+		}
+
+		/** Method for handling the hidden file load button. */
+		function handleBrowseClick() {
+			// Simulate a file input click.
+			var fileInput = document.getElementById('browse');
+			fileInput.click();
+		}
+
+		/**
+		 * Method for handling the hidden file load button.
+		 * @param {Object} event - The change event.
+		 */
+		function handleChange(event) {
+			// Update the button status.
+			buttonsSetToFileLoaded();
+
+			// Update the interface.
+			var fileInput = document.getElementById('browse');
+			var textInput = document.getElementById('filename');
+			textInput.value = fileInput.value.split('\\').pop().split('/').pop();
+
+			// Send feedback to the user.
+			alertify.message('Loaded local file: ' + textInput.value);
+
+			// Only select the first file.
+			context.source = event.target.files[0];
+		}
+
+		function selectExampleTask() {
+			// Update the button status.
+			buttonsSetToFileLoaded();
+
+			var exampleTasks = document.getElementById("exampleTasks");
+			var selectedTask = exampleTasks.options[exampleTasks.selectedIndex].value;
+
+			// context.mimetype = items[0] + '/';
+			context.source = selectedTask;
+
+			var textInput = document.getElementById('filename');
+			const elements = selectedTask.split('/')
+			if( elements.length === 1) {
+				textInput.value = elements[0]
+			} else {
+				textInput.value = elements.pop()
+			}
+		}
+
+		/** Show/hide console used by the console print method. */
+		function toggleConsole() {
+			var button = document.getElementById('console_button');
+			var c = document.getElementById('osweb_console');
+			if (c.style.display === 'none') {
+				// Set the console handler
+				context.onConsole = onConsoleHandler;
+
+				// Set interface.
+				c.style.display = '';
+				button.classList.add('btn-primary');
+			} else {
+				// Clear the console handler
+				context.onConsole = null;
+
+				// Set interface.
+				c.style.display = 'none';
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Enabled/Disable debugger. */
+		function toggleDebug() {
+			var button = document.getElementById('debug_button');
+			if (button.getAttribute('status') === 'off') {
+				// Enabled the fullScreen mode.
+				context.debug = true;
+
+				// Set the interface.
+				button.setAttribute('status', 'on');
+				button.classList.add('btn-primary');
+			} else {
+				// Disable the fullscreen mode.
+				context.debug = false;
+
+				// Set the interface.
+				button.setAttribute('status', 'off');
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Show canvas in fullscreen mode (Esc minimizes it again) */
+		function toggleFullscreen() {
+			var button = document.getElementById('fullscreen_button');
+			if (button.getAttribute('status') === 'off') {
+				// Enabled the fullScreen mode.
+				context.fullScreen = true;
+
+				// Set the interface.
+				button.setAttribute('status', 'on');
+				button.classList.add('btn-primary');
+			} else {
+				// Disable the fullscreen mode.
+				context.fullScreen = false;
+
+				// Set the interface.
+				button.setAttribute('status', 'off');
+				button.classList.remove('btn-primary');
+			}
+		}
+
+		/** Runs an experiment loaded from file. */
+		function runExperiment() {
+			// 'Run experiment' has been clicked
+			buttonsSetToFileLoaded();
+
+			if (document.getElementById('run_button').getAttribute('status') === 'run') {
+				document.getElementById('run_button').setAttribute('status', 'stop');
+				document.getElementById('run_button').innerHTML = 'Stop';
+				document.getElementById('run_button').classList.remove('btn-success', 'mdi-play');
+				document.getElementById('run_button').classList.add('btn-danger', 'mdi-stop');
+
+				// Set the fullscreen toggle.
+				context.fullScreen = (document.getElementById('fullscreen_button').getAttribute('status') === 'on');
+
+				// Run the experiment within the Runner with the given context.
+				runner.run(context);
+			} else {
+				// Stop the experiment
+				alertify.confirm('Stopping experiment', 'Are you sure you want to abort the experiment?',
+					function () {
+						runner.exit();
+					},
+					function () {
+						/* What to do when cancelled */
+					})
+				.set('labels', {
+					ok: 'Yes',
+					cancel: 'No'
+				});
+			}
+		}
+
+		/**
+		 * Function to handle confirm dialog messages from the runner.
+		 * @param {String} title - The title of the dialog box.
+		 * @param {String} message - The message qwithin the dialog box.
+		 * @param {Object} onConfirm - The confirm event.
+		 * @param {Object} onCancel - The cancel event.
+		 */
+		function confirm(title, message, onConfirm, onCancel) {
+			alertify.confirm(
+				title,
+				message,
+				function () {
+					onConfirm();
+				},
+				function () {
+					onCancel();
+				}.bind(this)
+			).showModal();
+		}
+
+		/**
+		 * Function to handle input prompt dialog messages from the runner.
+		 * @param {String} title - The title of the dialog box.
+		 * @param {String} message - The message qwithin the dialog box.
+		 * @param {String} defaultValue - The default value for the input field.
+		 * @param {String} dataType - The datatype to store.
+		 * @param {Object} onConfirm - The confirm event.
+		 * @param {Object} onCancel - The cancel event.
+		 */
+		function prompt(title, message, defaultValue, dataType, onConfirm, onCancel) {
+			alertify.prompt(
+				title,
+				message,
+				defaultValue,
+				function (evt, value) {
+					onConfirm(value);
+				},
+				function () {
+					onCancel();
+				}.bind(this)
+			).showModal();
+		}
+
+		/**
+		 * Callback function to print console text to an HTML element.
+		 * @param {String} text - A line of text to print to a console element.
+		 */
+		function onConsoleHandler(text) {
+			// Log the session data to the console.
+			if (text !== null) {
+				// Add the text to the console window.
+				var a = document.getElementById('osweb_console_text').value;
+				a = a + text + '\r\n';
+				document.getElementById('osweb_console_text').value = a;
+			}
+		}
+
+		/** Callback function for processing after an experiment is finished.
+		 * @param {Object} data - The result data.
+		 * @param {Object} sessionData - The session data.
+		 */
+		function onFinishedHandler(data, sessionData) {
+
+			// Reset the run button.
+			document.getElementById('run_button').value = 'Run experiment';
+			document.getElementById('run_button').setAttribute('status', 'run');
+			document.getElementById('run_button').innerHTML = 'Run';
+			document.getElementById('run_button').classList.remove('btn-danger', 'mdi-stop');
+			document.getElementById('run_button').classList.add('btn-success', 'mdi-play');
+
+			// Log the optional data to the console.
+			if (data !== null) {
+				console.log('-- experiment data --');
+				console.log(data);
+			}
+
+			// Log the optional session data to the console.
+			if (sessionData !== null) {
+				console.log('-- experiment session data --');
+				console.log(sessionData);
+			}
+		}
+
+		/**
+		 * Callback function for processing log data
+		 * @param {Object} data - The result data.
+		 */
+		function onLogHandler(data) {
+			// Log the optional data to the console.
+			if (data !== null) {
+				console.log(data);
+			}
+		}
+	</script>
+</body>
+
+</html>
